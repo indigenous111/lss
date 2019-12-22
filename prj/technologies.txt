@@ -1,0 +1,4 @@
+Backend-Service: Java, Spring Boot
+Database:
+UI: Angular
+Build: maven
