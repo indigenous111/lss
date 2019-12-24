@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 @RestController
 @RequestMapping("/global/hero")
 public class GlobalHeroController {
 
+	@Resource
     private GlobalHeroService globalHeroService;
 
     @GetMapping("/types")
