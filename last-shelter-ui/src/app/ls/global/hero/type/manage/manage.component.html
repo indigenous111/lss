@@ -1,14 +1,8 @@
-<table style="width:100%;">
-  <caption>List of Hero Types</caption>
-  <tr>
-     <td>1.</td>
-     <td>S1</td>
-  </tr>
-  <tr>
-    <td>2.</td>
-    <td>S2</td>
-  </tr>
-</table>
+
+  <h2>List of Hero Types</h2>
+  <ul>
+    <li *ngFor="let hero of heroTypes">{{hero}}</li>
+  </ul>
 <table style="width:100%;">
   <caption>Add a new Hero Type.</caption>
   <tr>

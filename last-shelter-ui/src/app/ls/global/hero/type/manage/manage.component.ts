@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManageserviceService } from './manageservice.service';
 
 @Component({
   selector: 'app-manage',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageComponent implements OnInit {
 
-  constructor() { }
+  heroTypes:string[];
+
+
+
+  constructor(private manageserviceService:ManageserviceService) {
+
+  }
 
   ngOnInit() {
+    providers:[ManageserviceService]
+    this.heroTypes = this.manageserviceService.getHeroTypes();
   }
 
 }
