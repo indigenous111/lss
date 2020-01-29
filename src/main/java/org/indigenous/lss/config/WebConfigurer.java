@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.indigenous.lss.interceptors.CORSInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -14,10 +15,13 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfigurer
-		implements ServletContextInitializer, WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+public class WebConfigurer implements ServletContextInitializer,
+		WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>, WebMvcConfigurer {
 
 	private final Environment env;
 
@@ -41,6 +45,17 @@ public class WebConfigurer
 	public void customize(ConfigurableServletWebServerFactory factory) {
 		customizeDocumentRoot(factory);
 	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new CORSInterceptor());
+	}
+	
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+    }
 
 	private void customizeDocumentRoot(ConfigurableServletWebServerFactory container) {
 		if (!StringUtils.isEmpty(staticAssetsFolderPath)) {
